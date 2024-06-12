@@ -44,7 +44,7 @@
         <a href="list">
             <button id="b1">회원 리스트로</button>
         </a> <img
-            src="@{/img/signup.jpg}"
+            th:src="@{/img/signup.jpg}"
             width="200" height="200">
         <form action="update" method="post">
             <table border="1">
@@ -55,39 +55,27 @@
                     <td class="t1">회원 분류</td>
                     <td><select name="userCategory">
 
-                        <c:if test="${sessionScope.loginUser.userCategory eq 10}">
-
-                            <option value=10 selected>관리자</option>
-                            <option value=20>일반회원</option>
-
-                        </c:if>
-
-                        <c:if test="${sessionScope.loginUser.userCategory eq 20}">
-
-                            <option value=10>관리자</option>
-                            <option value=20 selected>일반회원</option>
-
-                        </c:if>
-
+                        <option th:value="10" th:selected="${session.loginUser.userCategory == 10}">관리자</option>
+                        <option th:value="20" th:selected="${session.loginUser.userCategory == 20}">일반회원</option>
 
                     </select>
                     </td>
                 </tr>
                 <tr>
                     <td class="t1">아이디</td>
-                    <td><input name="id" value=${sessionScope.loginUser.id}></td>
+                    <td><input name="id" th:value="${session.loginUser.id}"></td>
                 </tr>
                 <tr>
                     <td class="t1">패스워드 :</td>
-                    <td><input name="pw" value=${sessionScope.loginUser2.pw}></td>
+                    <td><input name="pw" th:value="${session.loginUser2.pw}"></td>
                 </tr>
                 <tr>
                     <td class="t1">이름 :</td>
-                    <td><input name="name" value=${sessionScope.loginUser.name}></td>
+                    <td><input name="name" th:value="${session.loginUser.name}"></td>
                 </tr>
                 <tr>
                     <td class="t1">전화번호 :</td>
-                    <td><input name="tel" value=${sessionScope.loginUser.tel}></td>
+                    <td><input name="tel" th:value="${session.loginUser.tel}"></td>
                 </tr>
                 <tr>
                     <td colspan="2" class="t1">
@@ -103,12 +91,6 @@
     <br>
     <br>
 </div>
-
-
-<!-- 이쪽에 푸터바 포함할꺼임 -->
-<%--
-<jsp:include page="../common/footer.jsp"/>
---%>
 
 
 </body>
