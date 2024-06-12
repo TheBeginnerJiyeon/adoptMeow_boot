@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+
+    <style th:replace="~{common/menubar::menubarStyle}"></style>
+    <style th:replace="~{common/randomCat::randomCatStyle}"></style>
+    <script th:replace="~{common/randomCat::randomCatScript}"></script>
+
+
+</head>
+
+
+
+<body>
+<h1 align="center">CatMeow에 오신 것을 환영합니다!!</h1>
+
+
+<div th:insert="~{common/menubar::menubar}"></div>
+<div th:insert="~{common/randomCat::randomCat}"></div>
+
+
+
+
+<br>
+<br>
+
+</body>
+</html>
