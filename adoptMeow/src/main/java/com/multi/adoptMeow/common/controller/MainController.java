@@ -22,5 +22,7 @@ public class MainController {
 	public String testPage() {
 		return "test";
 	}
+	
+	
 
 }

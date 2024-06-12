@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.adoptMeow.users.model.dao.UsersMapper">
+
+
+	<select id="selectOne" parameterType="usersDTO" resultType="usersDTO">
+		
+		select * from users
+		where id=#{id}
+	
+	
+	</select>
+	
+	<insert id = "insertUser" parameterType="usersDTO">
+	
+		insert into users
+		VALUES(NULL, #{userCategory}, #{id},#{pw},#{name},#{tel},NOW())
+	
+	</insert>
+	
+	<update id="updateUser" parameterType="usersDTO">
+	
+		update users
+		set 
+		user_category=#{userCategory},
+		id=#{id},
+		pw=#{pw},
+		name=#{name},
+		tel=#{tel}
+		
+		where no=#{no}
+	
+	
+	</update>
+
+
+
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

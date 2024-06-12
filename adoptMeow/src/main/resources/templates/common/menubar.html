@@ -56,6 +56,27 @@
 <div th:fragment="menubar">
 
 
+    <!--오류때문에 빼놓음-->
+    <div id="loginInfo">
+        <div th:if="${session.loginUser==null}">
+
+            <form th:action="@{/users/login}" method="post">
+                로그인하세요<br>
+                아이디 : <input name="id"> 패스워드 : <input name="pw">
+                <button type="submit">로그인!!</button>
+            </form>
+        </div>
+
+        <div th:if="${session.loginUser!=null}">
+
+            <span th:text="${session.loginUser.id}"></span>님 환영합니다!!<br>
+            <a th:href="@{/users/myPage}">마이페이지 가기</a>
+            <a th:href="@{/users/logout}">로그아웃</a>
+
+        </div>
+
+    </div>
+
 
 
 
@@ -72,27 +93,6 @@
 
     </div>
 
-
-</div>
-
-<!--오류때문에 빼놓음-->
-<div id="loginInfo">
-    <div th:if="${empty sessionScope.loginUser}">
-
-        <form th:action="@{users/login}" method="post">
-            로그인하세요<br>
-            아이디 : <input name="id"> 패스워드 : <input name="pw">
-            <button type="submit">로그인!!</button>
-        </form>
-    </div>
-
-    <div th:if="${!empty sessionScope.loginUser}">
-
-        <label>[[${sessionScope.loginUser.name}님 환영합니다.]]!</label>
-        <a th:href="users/myPage">마이페이지 가기</a>
-        <a th:href="users/logout">로그아웃</a>
-
-    </div>
 
 </div>
 
