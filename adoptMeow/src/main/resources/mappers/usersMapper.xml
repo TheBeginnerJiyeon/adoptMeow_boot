@@ -10,7 +10,13 @@
 	
 	
 	</select>
-	
+
+	<select id="selectCategoryList" resultType="usersCategoryDTO">
+
+		select * from users_Category
+
+	</select>
+
 	<insert id = "insertUser" parameterType="usersDTO">
 	
 		insert into users

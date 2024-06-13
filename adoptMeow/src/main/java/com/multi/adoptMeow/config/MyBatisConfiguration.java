@@ -3,6 +3,7 @@ package com.multi.adoptMeow.config;
 
 import com.multi.adoptMeow.cat.model.dto.CatDTO;
 import com.multi.adoptMeow.page.model.dto.PageDTO;
+import com.multi.adoptMeow.users.model.dto.UsersCategoryDTO;
 import com.multi.adoptMeow.users.model.dto.UsersDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -44,10 +45,12 @@ public class MyBatisConfiguration {
 		configuration.setJdbcTypeForNull(null);
 		configuration.setMapUnderscoreToCamelCase(true);
 		
+		
 		// set type alias(추가 예정)
 		configuration.getTypeAliasRegistry().registerAlias("usersDTO", UsersDTO.class);
 		configuration.getTypeAliasRegistry().registerAlias("catDTO", CatDTO.class);
 		configuration.getTypeAliasRegistry().registerAlias("pageDTO", PageDTO.class);
+		configuration.getTypeAliasRegistry().registerAlias("usersCategoryDTO", UsersCategoryDTO.class);
 		
 		
 		bean.setConfiguration(configuration);

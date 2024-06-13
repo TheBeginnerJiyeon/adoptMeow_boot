@@ -1,5 +1,6 @@
-<html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
     <script type="text/javascript">
@@ -29,6 +30,36 @@
         }
     </style>
     <style th:replace="~{common/menubar::menubarStyle}"></style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(
+
+           function () {
+
+               function categoryGet(){
+                $.ajax({
+                    url: 'usersCategoryGet',
+                    method: 'POST',
+                    contentType : 'application/json',
+                    success: function(list){
+                        console.log(list);
+
+                        $.each(list, function(index, cate){
+
+                            $('#userCategory').append('<option value='+ cate.cCode + '>' + cate.cName + '</option>');
+                        })
+                    }
+                })
+            }
+            categoryGet();
+
+        })
+
+
+    </script>
+
+
 </head>
 <body>
 
@@ -52,9 +83,9 @@
                 <!-- ajax 다 고려해서 넣기 -->
                 <tr>
                     <td class="t1">회원 분류</td>
-                    <td><select name="userCategory">
-                        <option value=10>관리자</option>
-                        <option value=20>일반회원</option>
+                    <td><select name="userCategory" id="userCategory">
+                        <!--<option value=10>관리자</option>
+                        <option value=20>일반회원</option>-->
                     </select>
                     </td>
                 </tr>
@@ -84,15 +115,10 @@
         </form>
 
 
-
-
     </div>
     <br>
     <br>
 </div>
-
-
-
 
 
 </body>
