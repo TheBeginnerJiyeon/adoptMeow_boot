@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.adoptMeow.cat.model.dao.CatMapper">
+
+
+
+	<insert id="insertCat" parameterType="catDTO"
+		useGeneratedKeys="true" keyProperty="id">
+
+		insert into cat 
+		(id, name, cat_color_id, content, age, shelter_id,img,
+		created_person)
+		values (#{id}, #{name} , #{catColorId}, #{content}, #{age},#{shelterId},#{img},#{createdPerson})
+	</insert>
+	
+	
+	<select id="selectList" parameterType="pageDTO" resultType="catDTO">
+	
+		select 
+		rownum, id, name, cat_color_id, content, age, shelter_id,
+		img, created_date, created_person, modified_date, 
+		modified_person, status
+		from (select ROW_NUMBER() over(order by id desc) as rownum, c.* 
+		from cat c) c2
+		where c2.rownum between ${start} and ${end}
+	
+	
+	</select>
+	
+	<select id="selectCount" resultType="Integer">
+		select count(*) count from cat
+	
+	</select>
+	
+	
+	
+	<!-- <update id="updateBoard" parameterType="boardDTO">
+		update board
+		set 
+		title = #{title},
+		content = #{content}
+		
+		where no = #{no}
+	</update> -->
+
+
+	<!-- update member set status='N' where user_id=#{userId} -->
+
+<!-- 
+	<select id="selectBoard" parameterType="int"
+		resultType="boardDTO">
+		select * from board
+		where no = #{no}
+	</select>
+
+
+
+	
+	<select id="selectBoardList" resultType="boardDTO">
+		select * from board
+	</select>
+
+	<delete id="deleteBoard" parameterType="int">
+		delete from board where no = #{no}
+	</delete> -->
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
