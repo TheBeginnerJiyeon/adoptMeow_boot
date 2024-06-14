@@ -75,6 +75,15 @@
 
             var catsData=[];
 
+            $('#b4').click(function(){
+
+
+
+
+
+            })
+
+
             $('#b3').click(function(){
 
                 $.ajax({
@@ -94,7 +103,9 @@
                         var list = [];
                         $(array.data).each(function(i,cat){
 
-                            list.push({
+                            if(cat["품종"].includes("[고양이]")){
+
+                                list.push({
 
                                 경도: cat["경도(WGS84)"],
                                 공고고유번호: cat["공고고유번호"],
@@ -122,7 +133,11 @@
                                 특징: cat["특징"],
                                 품종: cat["품종"]
 
-                            });
+                                });
+
+                            }
+
+
                         });
 
 
