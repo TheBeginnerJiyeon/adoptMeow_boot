@@ -8,6 +8,53 @@
     </script>
     <script type="text/javascript"
             src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(
+
+           function () {
+
+               function catColorGet(){
+                $.ajax({
+                    url: 'catColorGet',
+                    method: 'POST',
+                    contentType : 'application/json',
+                    success: function(list){
+                        console.log(list);
+
+                        $.each(list, function(index, catColor){
+
+                            $('#catColor').append('<option value='+ catColor.id + '>' + catColor.name + '</option>');
+                        })
+                    }
+                })}
+
+
+               function shelterGet(){
+                $.ajax({
+                    url: 'shelterGet',
+                    method: 'POST',
+                    contentType : 'application/json',
+                    success: function(list){
+                        console.log(list);
+
+                        $.each(list, function(index, shelter){
+
+                            $('#shelter').append('<option value='+ shelter.id + '>' + shelter.name + '</option>');
+                        })
+                    }
+                })}
+
+
+                catColorGet();
+                shelterGet();
+            })
+
+
+
+    </script>
+
+
     <style type="text/css">
         body { /* 컨트롤 + / - 자동주석, 태그선택! */
             background: lightblue;
@@ -69,12 +116,12 @@
                 <tr>
                     <td class="t1">고양이 색깔 :</td>
                     <!-- 나중에 ajax로 cat_color테이블에서 가져올 것 -->
-                    <td><select name="catColorId">
-                        <option value=1>검냥이</option>
+                    <td><select name="catColor" id="catColor">
+                        <!--<option value=1>검냥이</option>
                         <option value=2>흰둥이</option>
                         <option value=3>점박이</option>
                         <option value=4>노랑이</option>
-                        <option value=5>보라둥이</option>
+                        <option value=5>보라둥이</option>-->
                     </select></td>
                 </tr>
                 <tr>
@@ -88,11 +135,11 @@
                 <tr>
                     <td class="t1">보호소 이름 :</td>
                     <!-- 나중에 ajax로 SHELTER 테이블에서 가져올 것 -->
-                    <td><select name="shelterId">
-                        <option value="c100">GOOD</option>
+                    <td><select name="shelter" id="shelter">
+                        <!--<option value="c100">GOOD</option>
                         <option value="c200">JOA</option>
                         <option value="c300">MARIA</option>
-                        <option value="c400">MY</option>
+                        <option value="c400">MY</option>-->
                     </select></td>
                 </tr>
 

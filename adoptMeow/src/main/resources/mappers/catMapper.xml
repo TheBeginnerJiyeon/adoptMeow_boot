@@ -26,7 +26,21 @@
 	
 	
 	</select>
-	
+
+	<select id="selectCatColorList" resultType="catColorDTO">
+
+		select * from cat_color;
+
+
+	</select>
+
+	<select id="selectShelterList" resultType="shelterDTO">
+
+		select * from shelter;
+
+
+	</select>
+
 	<select id="selectCount" resultType="Integer">
 		select count(*) count from cat
 	

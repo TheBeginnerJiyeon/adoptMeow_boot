@@ -1,10 +1,13 @@
 package com.multi.adoptMeow.cat.service;
 
 import com.multi.adoptMeow.cat.model.dao.CatMapper;
+import com.multi.adoptMeow.cat.model.dto.CatColorDTO;
 import com.multi.adoptMeow.cat.model.dto.CatDTO;
 import com.multi.adoptMeow.page.model.dto.PageDTO;
+import com.multi.adoptMeow.shelter.model.dto.ShelterDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -49,5 +52,24 @@ public class CatServiceImpl implements CatService {
 		
 		
 	}
-
+	
+	@Override
+	public ArrayList<CatColorDTO> selectCatColorList() throws Exception {
+		
+		ArrayList<CatColorDTO> list = catDAO.selectCatColorList();
+		
+		return list;
+		
+		
+	}
+	
+	@Override
+	public ArrayList<ShelterDTO> selectShelterList() throws Exception {
+		
+		ArrayList<ShelterDTO> list = catDAO.selectShelterList();
+		
+		
+		return list;
+	}
+	
 }

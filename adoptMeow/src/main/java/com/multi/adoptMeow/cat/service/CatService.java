@@ -1,9 +1,12 @@
 package com.multi.adoptMeow.cat.service;
 
 
+import com.multi.adoptMeow.cat.model.dto.CatColorDTO;
 import com.multi.adoptMeow.cat.model.dto.CatDTO;
 import com.multi.adoptMeow.page.model.dto.PageDTO;
+import com.multi.adoptMeow.shelter.model.dto.ShelterDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface CatService {
@@ -13,5 +16,8 @@ public interface CatService {
 	List<CatDTO> selectList(PageDTO pageDTO) throws Exception;
 
 	int selectCount() throws Exception;
-
+	
+	ArrayList<CatColorDTO> selectCatColorList() throws Exception;
+	
+	ArrayList<ShelterDTO> selectShelterList() throws Exception;
 }
