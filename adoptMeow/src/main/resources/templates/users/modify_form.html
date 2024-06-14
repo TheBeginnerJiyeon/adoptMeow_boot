@@ -47,8 +47,9 @@
                         console.log(list);
 
 
-                        var userCategory=$('#userInfo').val();
-                        console.log("why,,,"+userCategory)
+                        var userCategory= [[${session.loginUser.userCategory}]];
+
+                        console.log("why,,,"+userCategory);
 
                         $.each(list, function(index, cate){
 
@@ -92,7 +93,7 @@
             th:src="@{/img/signup.jpg}"
             width="200" height="200">
 
-        <div id="userInfo" th:value="${session.loginUser.userCategory}" th:text="${session.loginUser.userCategory}"></div>
+
 
         <form action="update" method="post">
             <table border="1">
