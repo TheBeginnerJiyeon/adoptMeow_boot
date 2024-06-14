@@ -122,7 +122,7 @@ public class CatController {
 	// 등록할 때도 썸네일 넣기 도전??  
 	@PostMapping("/insert")
 	public void insertCat(HttpServletRequest httpServletRequest, HttpSession httpSession, Model model, CatDTO catDTO,
-						  MultipartFile singleFile) {
+						  @RequestParam("singleFile") MultipartFile singleFile) {
 		
 		// 파일을 서버에 저장
 		
