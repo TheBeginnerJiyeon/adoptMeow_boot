@@ -127,7 +127,8 @@ public class CatController {
 		// 파일을 서버에 저장
 		
 		// 경로 지정, 폴더 생성
-		String root = httpServletRequest.getSession().getServletContext().getRealPath("resources");
+		// 부트의 경우 상대경로가 아닌 절대경로를 넣어야한다는 글을 보고 넣는 중..https://stir.tistory.com/147
+		String root = "C:\\code_upload\\Auto_window\\multi_it\\backend\\my_Project\\adoptMeow_boot\\adoptMeow_boot\\adoptMeow\\src\\main\\resources\\static\\img";
 		
 		System.out.println("root: " + root);
 		
