@@ -22,4 +22,10 @@ public interface CatMapper {
 	ArrayList<CatColorDTO> selectCatColorList();
 	
 	ArrayList<ShelterDTO> selectShelterList();
+	
+	int insertShelter(ShelterDTO shelterDTO);
+	
+	int selectShelterCount();
+	
+	List<ShelterDTO> selectShelterByName(String shelterName);
 }

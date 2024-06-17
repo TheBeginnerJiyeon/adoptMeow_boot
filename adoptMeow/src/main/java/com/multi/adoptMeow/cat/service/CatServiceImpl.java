@@ -72,4 +72,31 @@ public class CatServiceImpl implements CatService {
 		return list;
 	}
 	
+	@Override
+	public void insertShelter(ShelterDTO shelterDTO) throws Exception {
+		
+		int result= catDAO.insertShelter(shelterDTO);
+		
+		if(result < 0) {
+			throw new Exception("보호소 등록에 실패하셨습니다.");
+		}
+		
+	}
+	
+	@Override
+	public int selectShelterCount() throws Exception {
+		int count = catDAO.selectShelterCount();
+		
+		return count;
+	}
+	
+	@Override
+	public List<ShelterDTO> selectShelterByName(String shelterName) throws Exception {
+		
+		
+		List<ShelterDTO> list = catDAO.selectShelterByName(shelterName);
+		
+		return list;
+	}
+	
 }

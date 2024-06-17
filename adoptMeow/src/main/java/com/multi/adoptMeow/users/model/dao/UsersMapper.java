@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public interface UsersMapper {
 
 	public UsersDTO selectOne(UsersDTO usersDTO);
+	
+	public UsersDTO selectOneById(String usersId);
 
 	public int insertUser(UsersDTO usersDTO);
 

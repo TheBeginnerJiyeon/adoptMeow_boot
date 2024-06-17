@@ -5,9 +5,9 @@ public class ShelterDTO {
 	private String id;
 	private String name;
 	private String addr;
-	private int tel;
-	private int lat;
-	private int longt;
+	private String tel;
+	private Double lat;
+	private Double longt;
 	
 	public String getId() {
 		return id;
@@ -33,27 +33,27 @@ public class ShelterDTO {
 		this.addr = addr;
 	}
 	
-	public int getTel() {
+	public String getTel() {
 		return tel;
 	}
 	
-	public void setTel(int tel) {
+	public void setTel(String tel) {
 		this.tel = tel;
 	}
 	
-	public int getLat() {
+	public Double getLat() {
 		return lat;
 	}
 	
-	public void setLat(int lat) {
+	public void setLat(Double lat) {
 		this.lat = lat;
 	}
 	
-	public int getLongt() {
+	public Double getLongt() {
 		return longt;
 	}
 	
-	public void setLongt(int longt) {
+	public void setLongt(Double longt) {
 		this.longt = longt;
 	}
 	

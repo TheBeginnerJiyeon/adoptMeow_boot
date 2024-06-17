@@ -2,46 +2,110 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.multi.adoptMeow.users.model.dao.UsersMapper">
 
+    <resultMap id="loginUsersResultMap" type="usersDTO">
 
-	<select id="selectOne" parameterType="usersDTO" resultType="usersDTO">
-		
-		select * from users
-		where id=#{id}
-	
-	
-	</select>
+        <id column="no" property="no"/>
+        <result column="user_category" property="userCategory" />
+        <result column="id" property="id" />
+        <result column="pw" property="pw" />
+        <result column="name" property="name" />
+        <result column="tel" property="tel" />
+        <result column="created_date" property="createdDate" />
 
-	<select id="selectCategoryList" resultType="usersCategoryDTO">
 
-		select * from users_Category
-
-	</select>
-
-	<insert id = "insertUser" parameterType="usersDTO">
-	
-		insert into users
-		VALUES(NULL, #{userCategory}, #{id},#{pw},#{name},#{tel},NOW())
-	
-	</insert>
-	
-	<update id="updateUser" parameterType="usersDTO">
-	
-		update users
-		set 
-		user_category=#{userCategory},
-		id=#{id},
-		pw=#{pw},
-		name=#{name},
-		tel=#{tel}
-		
-		where no=#{no}
-	
-	
-	</update>
+        <collection property="usersCategoryDTOList" resultMap="usersCategoryResultMap"/>
 
 
 
-	
+
+    </resultMap>
+
+    <resultMap id="usersCategoryResultMap" type="usersCategoryDTO">
+
+        <id column="c_code" property="cCode"></id>
+        <id column="c_name" property="cName"></id>
+
+
+        <association property="usersAuthorityDTO" resultMap="usersAuthorityDTOResultMap"></association>
+
+    </resultMap>
+
+    <resultMap id="usersAuthorityDTOResultMap" type="usersAuthorityDTOType">
+
+        <id column="authority_code" property="authorityCode"></id>
+        <result column="authority_name" property="authorityName"></result>
+        <result column="authority_desc" property="authorityDesc"></result>
+
+    </resultMap>
+
+
+
+    <!--로그인 : 여러 권한 테이블 조인 방식으로 바꿀 것-->
+    <select id="selectOne" parameterType="usersDTO" resultType="usersDTO">
+
+        select * from users
+        where id=#{id}
+
+
+    </select>
+
+    <select id="selectOneById" resultMap="loginUsersResultMap">
+
+        select
+
+        a.no,
+        a.user_category,
+        a.id,
+        a.pw,
+        a.name,
+        a.tel,
+        a.created_date,
+
+        b.c_code,
+        b.c_name,
+
+        c.authority_code,
+        c.authority_name,
+        c.authority_desc
+
+        from users a
+
+        left join users_category b on (a.user_category = b.c_code)
+        left join users_authority c on (b.c_code = c.authority_code)
+
+        where a.id=#{usersId}
+
+    </select>
+
+    <select id="selectCategoryList" resultType="usersCategoryDTO">
+
+        select * from users_Category
+
+    </select>
+
+    <insert id="insertUser" parameterType="usersDTO">
+
+        insert into users
+        VALUES(NULL, #{userCategory}, #{id},#{pw},#{name},#{tel},NOW())
+
+    </insert>
+
+    <update id="updateUser" parameterType="usersDTO">
+
+        update users
+        set
+        user_category=#{userCategory},
+        id=#{id},
+        pw=#{pw},
+        name=#{name},
+        tel=#{tel}
+
+        where no=#{no}
+
+
+    </update>
+
+
 </mapper>
 
 

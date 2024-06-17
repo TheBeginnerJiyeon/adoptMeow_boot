@@ -12,7 +12,15 @@
 		created_person)
 		values (#{id}, #{name} , #{catColorId}, #{content}, #{age},#{shelterId},#{img},#{createdPerson})
 	</insert>
-	
+
+	<insert id="insertShelter" parameterType="shelterDTO"
+		useGeneratedKeys="true" keyProperty="id">
+
+		insert into shelter
+		(id, name, addr, tel, lat, longt)
+		values (#{id}, #{name} , #{addr}, #{tel}, #{lat},#{longt})
+	</insert>
+
 	
 	<select id="selectList" parameterType="pageDTO" resultType="catDTO">
 	
@@ -41,11 +49,23 @@
 
 	</select>
 
+	<select id="selectShelterByName">
+
+		select * from shelter where name=#{shelterName};
+
+
+	</select>
+
 	<select id="selectCount" resultType="Integer">
 		select count(*) count from cat
 	
 	</select>
-	
+
+	<select id="selectShelterCount" resultType="Integer">
+		select count(*) count from shelter
+
+	</select>
+
 	
 	
 	<!-- <update id="updateBoard" parameterType="boardDTO">

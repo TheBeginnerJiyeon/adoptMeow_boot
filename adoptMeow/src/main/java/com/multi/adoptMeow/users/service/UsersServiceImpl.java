@@ -4,7 +4,9 @@ package com.multi.adoptMeow.users.service;
 import com.multi.adoptMeow.users.model.dao.UsersMapper;
 import com.multi.adoptMeow.users.model.dto.UsersCategoryDTO;
 import com.multi.adoptMeow.users.model.dto.UsersDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,19 +18,18 @@ import java.util.ArrayList;
 public class UsersServiceImpl implements UsersService {
 	
 	private final UsersMapper usersMapper;
-
-	/*@Autowired
-	private SqlSessionTemplate sqlSessionTemplate;*/
+	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
-	public UsersServiceImpl(UsersMapper usersMapper) {
+	@Autowired
+	public UsersServiceImpl(UsersMapper usersMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
 		super();
 		this.usersMapper = usersMapper;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
 	}
 
-	/*@Autowired
-	BCryptPasswordEncoder bCryptPasswordEncoder;*/
 	
-	@Override
+	
+	/*@Override
 	public UsersDTO login(UsersDTO usersDTO) throws Exception {
 		
 		UsersDTO loginDto = usersMapper.selectOne(usersDTO);
@@ -36,10 +37,10 @@ public class UsersServiceImpl implements UsersService {
 		if (loginDto == null) {
 			System.out.println("아이디 자체가 없음...");
 			throw new Exception("아이디 자체가 없음...");
-		} /*else if (!bCryptPasswordEncoder.matches(usersDTO.getPw(), loginDto.getPw())) {
+		} *//*else if (!bCryptPasswordEncoder.matches(usersDTO.getPw(), loginDto.getPw())) {
 			System.out.println("비밀번호 불일치...");
 			throw new Exception("비밀번호 불일치......");
-		}*/ else if (!usersDTO.getPw().equals(loginDto.getPw())) {
+		}*//* else if (!usersDTO.getPw().equals(loginDto.getPw())) {
 			System.out.println(usersDTO.getPw());
 			System.out.println(loginDto.getPw());
 			
@@ -48,15 +49,14 @@ public class UsersServiceImpl implements UsersService {
 		}
 		
 		return loginDto;
-	}
+	}*/
 	
 	@Override
 	public int insertUser(UsersDTO usersDTO) throws Exception {
 
-		/*String encPw = bCryptPasswordEncoder.encode(usersDTO.getPw());
+		String encPw = bCryptPasswordEncoder.encode(usersDTO.getPw());
 
 		usersDTO.setPw(encPw);
-*/
 		int result = usersMapper.insertUser(usersDTO);
 		
 		return result;
@@ -66,9 +66,9 @@ public class UsersServiceImpl implements UsersService {
 	@Override
 	public int updateUser(UsersDTO usersDTO) throws Exception {
 
-		/*String encPw = bCryptPasswordEncoder.encode(usersDTO.getPw());
+		String encPw = bCryptPasswordEncoder.encode(usersDTO.getPw());
 
-		usersDTO.setPw(encPw);*/
+		usersDTO.setPw(encPw);
 		
 		int result = usersMapper.updateUser(usersDTO);
 		

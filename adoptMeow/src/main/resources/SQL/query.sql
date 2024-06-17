@@ -155,7 +155,7 @@ CREATE TABLE `shelter` (
   `ID` varchar(200) NOT NULL,
   `NAME` varchar(200) DEFAULT NULL,
   `ADDR` varchar(200) DEFAULT NULL,
-  `TEL` int DEFAULT NULL,
+  `TEL` varchar(200) DEFAULT NULL,
   `LAT` float DEFAULT NULL,
   `LONGT` float DEFAULT NULL,
   PRIMARY KEY (`ID`)
@@ -417,6 +417,13 @@ INSERT INTO AUTHORITY_MENU
 VALUES (20, 19);
 INSERT INTO AUTHORITY_MENU
 VALUES (20, 20);
+
+alter table authority_menu
+add constraint FK_MENU_CODE foreign key (MENU_CODE)
+references WEB_MENU(MENU_CODE)
+on update cascade
+on delete cascade;
+
 
 COMMIT;
 

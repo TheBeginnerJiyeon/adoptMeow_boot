@@ -4,6 +4,27 @@ public class UsersCategoryDTO {
 	
 	private int cCode;
 	private String cName;
+	private UsersAuthorityDTO usersAuthorityDTO;
+	
+	
+	
+	public UsersCategoryDTO() {
+	}
+	
+	public UsersCategoryDTO(int cCode, String cName, UsersAuthorityDTO usersAuthorityDTO) {
+		this.cCode = cCode;
+		this.cName = cName;
+		this.usersAuthorityDTO = usersAuthorityDTO;
+	}
+	
+	
+	public UsersAuthorityDTO getAuthorityDTO() {
+		return usersAuthorityDTO;
+	}
+	
+	public void setAuthorityDTO(UsersAuthorityDTO authorityDTO) {
+		this.usersAuthorityDTO = authorityDTO;
+	}
 	
 	public int getcCode() {
 		return cCode;
@@ -23,9 +44,10 @@ public class UsersCategoryDTO {
 	
 	@Override
 	public String toString() {
-		return "UsersCategiryDTO{" +
+		return "UsersCategoryDTO{" +
 				"cCode=" + cCode +
 				", cName='" + cName + '\'' +
+				", authorityDTO=" + usersAuthorityDTO +
 				'}';
 	}
 }

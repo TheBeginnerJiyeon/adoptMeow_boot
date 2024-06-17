@@ -8,11 +8,13 @@ import java.util.ArrayList;
 
 public interface UsersService {
 
-	public UsersDTO login(UsersDTO usersDTO) throws Exception;
+	/*public UsersDTO login(UsersDTO usersDTO) throws Exception;*/
 
 	public int insertUser(UsersDTO usersDTO) throws Exception;
 
 	public int updateUser(UsersDTO usersDTO) throws Exception;
+	
+	
 	
 	
 	ArrayList<UsersCategoryDTO> usersCategoryGet() throws Exception;

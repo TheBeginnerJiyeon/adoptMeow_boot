@@ -14,8 +14,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -231,14 +238,116 @@ public class CatController {
 			throw new RuntimeException(e);
 		}
 		
-		System.out.println(list+"여기를 보십셔");
+		System.out.println(list + "여기를 보십셔");
 		
 		return list;
 		
 	}
 	
 	
+	@ResponseBody
+	@PostMapping("/ansanCatInsert")
+	public void ansanCatInsert(@RequestBody Map<String, List<Map<String, Object>>> requestBody, HttpSession httpSession) {
+		
+		
+		// 데이터 가공 후 보호소 삽입
+		List<Map<String, Object>> shelterList = requestBody.get("shelterList");
+		System.out.println("shelterList : " + shelterList);
+		
+		for (Map<String, Object> shelter : shelterList) {
+			
+			
+			try {
+				
+				ShelterDTO shelterDTO = new ShelterDTO();
+				
+				int count = catService.selectShelterCount() + 1;
+				
+				shelterDTO.setId("c" + count + "00");
+				shelterDTO.setName(shelter.get("name").toString());
+				shelterDTO.setAddr(shelter.get("addr").toString());
+				shelterDTO.setTel(shelter.get("tel").toString());
+				shelterDTO.setLat(((Double) shelter.get("lat")));
+				shelterDTO.setLongt(((Double) shelter.get("longt")));
+				
+				
+				catService.insertShelter(shelterDTO);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
+		
+		
+		// 데이터 가공 후 고양이 삽입
+		List<Map<String, Object>> catList = requestBody.get("catList");
+		System.out.println("catList : " + catList);
+		
+		for (Map<String, Object> cat : catList) {
+			
+			String shelterName = cat.get("보호소명").toString();
+			
+			try {
+				List<ShelterDTO> list = catService.selectShelterByName(shelterName);
+				String shelterId = list.get(0).getId();
+				
+				
+				CatDTO catDTO = new CatDTO();
+				
+				// java.sql.SQLIntegrityConstraintViolationException: Cannot add or update a child row: a foreign key constraint fails (`scott`.`cat`, CONSTRAINT `cat_ibfk_2` FOREIGN KEY (`CAT_COLOR_ID`) REFERENCES `cat_color` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE)
+				
+				// 오류
+				
+				catDTO.setName(cat.get("name").toString());
+				catDTO.setContent(cat.get("content").toString());
+				catDTO.setAge(Integer.parseInt(cat.get("age").toString()));
+				catDTO.setShelterId(shelterId);
+				catDTO.setImg(cat.get("img").toString());
+				
+				UsersDTO loginDto = (UsersDTO) httpSession.getAttribute("loginUser");
+				
+				catDTO.setCreatedPerson(loginDto.getId());
+				
+				catService.insertCat(catDTO);
+				
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+			
+			
+			String root = "C:\\code_upload\\Auto_window\\multi_it\\backend\\my_Project\\adoptMeow_boot\\adoptMeow_boot\\adoptMeow\\src\\main\\resources\\static\\img";
+			System.out.println("root: " + root);
+			String filePath = root + "\\uploadFiles";
+			
+			File mkdir = new File(filePath);
+			
+			if (!mkdir.exists()) {
+				mkdir.mkdirs();
+			}
+			
+			try {
+				URL url = new URL(cat.get("img").toString());
+				
+				String savedName = UUID.randomUUID().toString().replace("-", "") + ".jpg";
+				
+				
+				InputStream in = url.openStream();
+				Files.copy(in, Paths.get(filePath + "\\" + savedName));
+				System.out.println("savedName : " + savedName);
+				
+				
+			} catch (MalformedURLException e) {
+				System.out.println("url 이상 : " + e);
+				throw new RuntimeException(e);
+			} catch (IOException e) {
+				System.out.println("io 이상 : " + e);
+				throw new RuntimeException(e);
+			}
+			
+			
+		}
+		
+		
+	}
 }
-
 //@RestController :  RestController 어노테이션을 사용하면 @ResponseBody 를 일일이 선언 안해도 되게 지원해준다. 
 //restController 차체가 controller  + @ResponseBody  ->ajax수업때 진행, springboot보강시

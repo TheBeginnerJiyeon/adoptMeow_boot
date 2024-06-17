@@ -5,6 +5,7 @@ import com.multi.adoptMeow.cat.model.dto.CatColorDTO;
 import com.multi.adoptMeow.cat.model.dto.CatDTO;
 import com.multi.adoptMeow.page.model.dto.PageDTO;
 import com.multi.adoptMeow.shelter.model.dto.ShelterDTO;
+import com.multi.adoptMeow.users.model.dto.UsersAuthorityDTO;
 import com.multi.adoptMeow.users.model.dto.UsersCategoryDTO;
 import com.multi.adoptMeow.users.model.dto.UsersDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -55,6 +56,7 @@ public class MyBatisConfiguration {
 		configuration.getTypeAliasRegistry().registerAlias("usersCategoryDTO", UsersCategoryDTO.class);
 		configuration.getTypeAliasRegistry().registerAlias("catColorDTO", CatColorDTO.class);
 		configuration.getTypeAliasRegistry().registerAlias("shelterDTO", ShelterDTO.class);
+		configuration.getTypeAliasRegistry().registerAlias("usersAuthorityDTOType", UsersAuthorityDTO.class);
 		
 		
 		bean.setConfiguration(configuration);

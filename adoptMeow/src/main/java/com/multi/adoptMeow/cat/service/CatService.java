@@ -20,4 +20,10 @@ public interface CatService {
 	ArrayList<CatColorDTO> selectCatColorList() throws Exception;
 	
 	ArrayList<ShelterDTO> selectShelterList() throws Exception;
+	
+	void insertShelter(ShelterDTO shelterDTO) throws Exception;
+	
+	int selectShelterCount() throws Exception;
+	
+	List<ShelterDTO> selectShelterByName(String shelterName) throws  Exception;
 }

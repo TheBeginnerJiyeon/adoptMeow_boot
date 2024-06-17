@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
-    <script type="text/javascript">
-        //alert(' 고양이 등록 페이지입니다. 반갑습니다.!')
-    </script>
     <script type="text/javascript"
             src="http://code.jquery.com/jquery-latest.min.js"></script>
 
@@ -71,13 +68,75 @@
     <script th:fragment="catScript" type="text/javascript">
 
 
+
         $(function(){
 
             var catsData=[];
+            var catList=[];
+            var shelterList=[];
+            var shelterNames= new Set();
 
             $('#b4').click(function(){
 
+                $(catsData).each(function(i,cat){
 
+                    var shelterName=cat["보호소명"];
+
+                    console.log(cat["위도"]+": 위도")
+                    console.log(cat["보호소명"]+": 위도")
+
+                    if(!shelterNames.has(shelterName)){
+
+                        console.log(parseFloat(cat["위도"]));
+
+                        shelterList.push({
+                                <!--보호소 아이디 행번호로 생성하기-->
+                                name: cat["보호소명"],
+                                addr: cat["보호소도로명주소"],
+                                tel: cat["보호소전화번호"],
+                                lat: parseFloat(cat["위도"]),
+                                longt: parseFloat(cat["경도"])
+                                });
+
+                        shelterNames.add(shelterName);
+
+                    }
+
+                    var birthYear= parseInt(cat["나이"].substring(0,4));
+                    var currentYear= new Date().getFullYear();
+                    var age= currentYear - birthYear;
+
+
+                    catList.push({
+                                name: cat["관할기관"]+"_"+cat["품종"]+i,
+                                content: cat["특징"],
+                                age: age,
+                                보호소명: cat["보호소명"],
+                                img: cat["이미지경로"]
+                                });
+                })
+
+                $.ajax({
+                    url: 'ansanCatInsert',
+                    method: 'POST',
+                    contentType : 'application/json',
+                    data: JSON.stringify({catList: catList, shelterList: shelterList}),
+                    success: function(){
+                        $('#result').html("<p>데이터베이스에 삽입 성공!!<p>")
+                    },
+                    error: function(xhr, status, error){
+
+                        var errorMessage= "삽입실패" +  error + "<br>"
+                                            + "Status : " + status + "<br>"
+                                            + "Response :" + xhr.responseText + "<br>";
+
+
+                        $('#result').html("<p>" + errorMessage + "</p>");
+
+
+
+                    }
+                })
 
 
 
@@ -104,6 +163,8 @@
                         $(array.data).each(function(i,cat){
 
                             if(cat["품종"].includes("[고양이]")){
+
+
 
                                 list.push({
 

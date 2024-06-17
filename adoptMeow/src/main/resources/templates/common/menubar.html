@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
@@ -56,22 +58,23 @@
 <div th:fragment="menubar">
 
 
-    <!--오류때문에 빼놓음-->
-    <div id="loginInfo">
-        <div th:if="${session.loginUser==null}">
 
-            <form th:action="@{/users/login}" method="post">
-                로그인하세요<br>
-                아이디 : <input name="id"> 패스워드 : <input name="pw">
-                <button type="submit">로그인!!</button>
-            </form>
+    <div id="loginInfo">
+
+        <div th:block sec:authorize="isAnonymous()">
+
+
+            <h3>로그인이 필요한 페이지입니다.</h3>
+            <button onclick="location.href='/users/login'">로그인</button>
+
         </div>
 
-        <div th:if="${session.loginUser!=null}">
+        <div th:block sec:authorize="isAuthenticated()">
 
-            <span th:text="${session.loginUser.id}"></span>님 환영합니다!!<br>
-            <a th:href="@{/users/myPage}">마이페이지 가기</a>
-            <a th:href="@{/users/logout}">로그아웃</a>
+            <h3><span sec:authentication="principal"></span></h3>
+
+            <span sec:authentication="principal.name"></span>님 환영합니다!!<br>
+            <button onclick="location.href='/users/logout'">로그아웃</button>
 
         </div>
 

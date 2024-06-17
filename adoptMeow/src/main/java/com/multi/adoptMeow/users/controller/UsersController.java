@@ -5,6 +5,7 @@ import com.multi.adoptMeow.users.model.dto.UsersDTO;
 import com.multi.adoptMeow.users.service.UsersService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,7 +50,17 @@ public class UsersController {
 	
 	}
 	
-	@RequestMapping("/login")
+	
+	@GetMapping("/login")
+	public void userLoginForm() {
+		System.out.println("userLoginForm()");
+	
+	}
+	
+	
+	// spring security 로 대체함
+	
+	/*@RequestMapping("/login")
 	public String login(UsersDTO usersDTO, HttpSession httpSession) {
 		
 		UsersDTO loginDto = null;
@@ -69,7 +80,7 @@ public class UsersController {
 		httpSession.setAttribute("loginUser", loginDto);
 		httpSession.setAttribute("loginUser2", usersDTO);
 		
-		/* redirectAttributes.addAttribute("loginUser",loginDto); */
+		*//* redirectAttributes.addAttribute("loginUser",loginDto); *//*
 		
 		String page = "redirect:/";
 		
@@ -86,7 +97,7 @@ public class UsersController {
 		
 		return page;
 		
-	}
+	}*/
 	
 	@RequestMapping("/insert")
 	public void insertUser(UsersDTO usersDTO) {
